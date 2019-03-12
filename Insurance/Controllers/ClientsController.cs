@@ -1,19 +1,20 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using Insurance.ApiControllers;
 using Insurance.Models;
-using Insurance.Repositories.Implementations;
-using Insurance.Repositories.Interfaces;
 
 namespace Insurance.Controllers
 {
     public class ClientsController : Controller
     {
-        private readonly IClientRepository clientRepository = new ClientRepository();
+        private readonly ApiClientController clientApi = new ApiClientController();
+        private readonly ApiPolicyController policyApi = new ApiPolicyController();
 
         // GET: Clients
         public ActionResult Index()
         {
-            var clients = clientRepository.Get();
+            var clients = clientApi.Get();
 
             return View(clients);
         }
@@ -21,28 +22,25 @@ namespace Insurance.Controllers
         // GET: Clients/Create
         public ActionResult Create()
         {
-            return View();
-        }
-
-        // POST: Clients/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Email,Address,Phone")] Client client)
-        {
-            if (ModelState.IsValid)
+            ViewBag.Policies = policyApi.Get().Select(policy => new SelectListItem
             {
-                clientRepository.Post(client);
+                Text = policy.Name,
+                Value = policy.Id.ToString()
+            });
 
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(client);
+            return View();
         }
 
         // GET: Clients/Edit/5
         public ActionResult Edit(int id)
         {
-            Client client= clientRepository.Get(id);
+            Client client = clientApi.Get(id);
+            IList<Policy> clientPolicies = policyApi.GetByClient(client.Id);
+            ViewBag.Policies = policyApi.Get().Except(clientPolicies).Select(policy => new SelectListItem
+            {
+                Text = policy.Name,
+                Value = policy.Id.ToString()
+            });
 
             if (client == null)
             {
@@ -52,14 +50,29 @@ namespace Insurance.Controllers
             return View(client);
         }
 
+        // POST: Clients/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Email,Address,Phone")] Client client)
+        {
+            if (ModelState.IsValid)
+            {
+                clientApi.Post(client);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(client);
+        }
+
         // PUT: Clients/Edit/5
-        [HttpPut]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,Address,Phone")] Client client)
         {
             if (ModelState.IsValid)
             {
-                clientRepository.Put(client);
+                clientApi.Put(client);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -68,11 +81,9 @@ namespace Insurance.Controllers
         }
 
         // POST: Clients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            clientRepository.Delete(id);
+            clientApi.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }

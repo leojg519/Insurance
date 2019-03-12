@@ -32,6 +32,13 @@ namespace Insurance.Repositories.Implementations
         public Policy Get(int id) => db.Policies.Find(id);
 
         /// <summary>
+        /// Get policies by client ID
+        /// </summary>
+        /// <param name="clientId">Client ID</param>
+        /// <returns>Policies by client ID</returns>
+        public IList<Policy> GetByClient(int clientId) => db.Clients.Find(clientId).Policies.ToList();
+
+        /// <summary>
         /// Create a new policy
         /// </summary>
         /// <param name="policy">New policy</param>

@@ -53,18 +53,14 @@
             <td>
                 @foreach (var policy in item.Policies)
                 {
-                    <p>
-                        @Html.DisplayFor(modelItem => policy.Name)
-                    </p>
+                <p>
+                    @Html.ActionLink(policy.Name, "Edit", "Policies", new { id = item.Id }, null)
+                </p>
                 }
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    <input type="submit" value="Delete" class="btn btn-default" />
-                }
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

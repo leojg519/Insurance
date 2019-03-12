@@ -13,7 +13,7 @@ namespace Insurance.Tests.ApiControllers
         public void Get()
         {
             // Disponer
-            ClientController controller = new ClientController();
+            ApiClientController controller = new ApiClientController();
 
             // Actuar
             IEnumerable<Client> result = controller.Get();
@@ -29,7 +29,7 @@ namespace Insurance.Tests.ApiControllers
         public void GetById()
         {
             // Disponer
-            ClientController controller = new ClientController();
+            ApiClientController controller = new ApiClientController();
 
             // Actuar
             Client result = controller.Get(1);
@@ -42,7 +42,7 @@ namespace Insurance.Tests.ApiControllers
         public void Post()
         {
             // Disponer
-            ClientController controller = new ClientController();
+            ApiClientController controller = new ApiClientController();
 
             // Actuar
             controller.Post(new Client());
@@ -54,7 +54,7 @@ namespace Insurance.Tests.ApiControllers
         public void Put()
         {
             // Disponer
-            ClientController controller = new ClientController();
+            ApiClientController controller = new ApiClientController();
 
             // Actuar
             controller.Put(5, new Client());
@@ -66,7 +66,7 @@ namespace Insurance.Tests.ApiControllers
         public void Delete()
         {
             // Disponer
-            ClientController controller = new ClientController();
+            ApiClientController controller = new ApiClientController();
 
             // Actuar
             controller.Delete(5);

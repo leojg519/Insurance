@@ -215,7 +215,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiControllers\ClientController.cs" />
+    <Compile Include="ApiControllers\ApiClientController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -250,7 +250,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\InsuranceController.cs" />
-    <Compile Include="ApiControllers\PolicyController.cs" />
+    <Compile Include="ApiControllers\ApiPolicyController.cs" />
     <Compile Include="Controllers\PoliciesController.cs" />
     <Compile Include="DAL\InsuranceContext.cs" />
     <Compile Include="Entities\Client.cs" />

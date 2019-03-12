@@ -22,6 +22,13 @@ namespace Insurance.Repositories.Interfaces
         Policy Get(int id);
 
         /// <summary>
+        /// Get policies by client ID
+        /// </summary>
+        /// <param name="clientId">Client ID</param>
+        /// <returns>Policies by client ID</returns>
+        IList<Policy> GetByClient(int clientId);
+
+        /// <summary>
         /// Create a new policy
         /// </summary>
         /// <param name="policy">New policy</param>
