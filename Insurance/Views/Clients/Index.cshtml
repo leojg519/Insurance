@@ -1,13 +1,17 @@
 ﻿@model IEnumerable<Insurance.Models.Client>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Clients";
 }
 
-<h2>Index</h2>
+<br />
+<div>
+    @Html.ActionLink("< Home", "Index", "Insurance", null, htmlAttributes: new { @class = "btn btn-info" })
+</div>
+<br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="h2">Clients
+    @Html.ActionLink("+ Add New", "Create", null, htmlAttributes: new { @class = "btn btn-primary pull-right" })
 </p>
 <table class="table">
     <tr>
@@ -53,14 +57,14 @@
             <td>
                 @foreach (var policy in item.Policies)
                 {
-                <p>
-                    @Html.ActionLink(policy.Name, "Edit", "Policies", new { id = item.Id }, null)
-                </p>
+                    <p>
+                        @Html.ActionLink(policy.Name, "Edit", "Policies", new { id = item.Id }, null)
+                    </p>
                 }
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-default" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-default" })
             </td>
         </tr>
     }

@@ -245,3 +245,4 @@ C:\Users\Leo & Eva\source\repos\Insurance\Insurance\bin\Microsoft.EntityFramewor
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance\bin\Microsoft.EntityFrameworkCore.SqlServer.xml
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance\obj\Debug\Insurance.dll.config
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance\bin\System.ComponentModel.Annotations.xml
+C:\Users\Leo & Eva\source\repos\Insurance\Insurance\obj\Debug\Insurance.csprojAssemblyReference.cache

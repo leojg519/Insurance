@@ -16,37 +16,39 @@ namespace Insurance.ApiControllers
         /// </summary>
         private IPolicyRepository policyRepository = new PolicyRepository();
 
-        // GET api/values
+
+        // GET api/policies
         public IList<Policy> Get()
         {
             return policyRepository.Get();
         }
 
-        // GET api/values/5
+        // GET api/policies/5
         public Policy Get(int id)
         {
             return policyRepository.Get(id);
         }        
 
-        // GET api/values/5
+        // GET api/policies/client/5
+        [Route("api/policies/client/clientId")]
         public IList<Policy> GetByClient(int clientId)
         {
             return policyRepository.GetByClient(clientId);
         }
 
-        // POST api/values
+        // POST api/policies
         public void Post([FromBody]Policy policy)
         {
             policyRepository.Post(policy);
         }
 
-        // PUT api/values/5
+        // PUT api/policies/5
         public void Put([FromBody]Policy policy)
         {
             policyRepository.Put(policy);
         }
 
-        // DELETE api/values/5
+        // DELETE api/policies/5
         public void Delete(int id)
         {
             policyRepository.Delete(id);

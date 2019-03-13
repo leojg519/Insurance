@@ -34,6 +34,13 @@ namespace Insurance.Repositories.Interfaces
         void Put(Client client);
 
         /// <summary>
+        /// Add policies to existing client
+        /// </summary>
+        /// <param name="clientId">Client ID</param>
+        /// <param name="policies">Policies ID</param>
+        void SaveClientPolicies(int clientId, List<int> policies);
+
+        /// <summary>
         /// Delete existing client
         /// </summary>
         /// <param name="id">Client ID</param>

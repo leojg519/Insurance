@@ -1,6 +1,7 @@
 ﻿using Insurance.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Insurance.Models
 {
@@ -16,13 +17,15 @@ namespace Insurance.Models
         public string Description { get; set; }
 
         public CoverageType Coverage { get; set; }
-
+        
         public int CoverPercentage { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime StartDate { get; set; }
 
         public int CoverMonths { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public int Price { get; set; }
 
         public RiskType Risk { get; set; }

@@ -1,17 +1,18 @@
 ﻿using System.Web.Mvc;
-using Insurance.ApiControllers;
 using Insurance.Models;
+using Insurance.Repositories.Implementations;
+using Insurance.Repositories.Interfaces;
 
 namespace Insurance.Controllers
 {
     public class PoliciesController : Controller
     {
-        private readonly ApiPolicyController policyApi = new ApiPolicyController();
+        private readonly IPolicyRepository policyRepository = new PolicyRepository();
 
         // GET: Policies
         public ActionResult Index()
         {
-            var policies = policyApi.Get();
+            var policies = policyRepository.Get();
 
             return View(policies);
         }
@@ -23,9 +24,10 @@ namespace Insurance.Controllers
         }
 
         // GET: Policies/5
+        [Route("Policy/{id}")]
         public ActionResult Edit(int id)
         {
-            Policy policy = policyApi.Get(id);
+            Policy policy = policyRepository.Get(id);
 
             if (policy == null)
             {
@@ -42,7 +44,7 @@ namespace Insurance.Controllers
         {
             if (ModelState.IsValid)
             {
-                policyApi.Post(policy);
+                policyRepository.Post(policy);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -57,7 +59,7 @@ namespace Insurance.Controllers
         {
             if (ModelState.IsValid)
             {
-                policyApi.Put(policy);
+                policyRepository.Put(policy);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -68,7 +70,7 @@ namespace Insurance.Controllers
         // POST: Policies/Delete/5
         public ActionResult Delete(int id)
         {
-            policyApi.Delete(id);
+            policyRepository.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }        

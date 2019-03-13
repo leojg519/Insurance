@@ -16,6 +16,12 @@ namespace Insurance
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "ClientPolicyApi",
+                routeTemplate: "api/{controller}/{clientId}/{action}/{policyId}",
+                defaults: new { clientId = RouteParameter.Optional, policyId = RouteParameter.Optional }
+            );
         }
     }
 }

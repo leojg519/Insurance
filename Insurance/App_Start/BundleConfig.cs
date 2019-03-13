@@ -8,7 +8,13 @@ namespace Insurance
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-3.3.1.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/client").Include(
+                        "~/Scripts/js/client.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/policy").Include(
+                        "~/Scripts/js/policy.js"));
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información sobre los formularios. De este modo, estará
             // para la producción, use la herramienta de compilación disponible en https://modernizr.com para seleccionar solo las pruebas que necesite.

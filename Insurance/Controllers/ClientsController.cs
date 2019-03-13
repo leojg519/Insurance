@@ -1,20 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Insurance.ApiControllers;
 using Insurance.Models;
+using Insurance.Repositories.Implementations;
+using Insurance.Repositories.Interfaces;
 
 namespace Insurance.Controllers
 {
     public class ClientsController : Controller
     {
-        private readonly ApiClientController clientApi = new ApiClientController();
-        private readonly ApiPolicyController policyApi = new ApiPolicyController();
+        private readonly IClientRepository clientRepository = new ClientRepository();
+        private readonly IPolicyRepository policyRepository = new PolicyRepository();
 
         // GET: Clients
         public ActionResult Index()
         {
-            var clients = clientApi.Get();
+            var clients = clientRepository.Get();
 
             return View(clients);
         }
@@ -22,7 +24,7 @@ namespace Insurance.Controllers
         // GET: Clients/Create
         public ActionResult Create()
         {
-            ViewBag.Policies = policyApi.Get().Select(policy => new SelectListItem
+            ViewBag.Policies = policyRepository.Get().Select(policy => new SelectListItem
             {
                 Text = policy.Name,
                 Value = policy.Id.ToString()
@@ -32,11 +34,13 @@ namespace Insurance.Controllers
         }
 
         // GET: Clients/Edit/5
+        [Route("Client/{id}")]
         public ActionResult Edit(int id)
         {
-            Client client = clientApi.Get(id);
-            IList<Policy> clientPolicies = policyApi.GetByClient(client.Id);
-            ViewBag.Policies = policyApi.Get().Except(clientPolicies).Select(policy => new SelectListItem
+            Client client = clientRepository.Get(id);
+            IList<Policy> clientPolicies = policyRepository.GetByClient(client.Id);
+
+            ViewBag.Policies = policyRepository.Get().Except(clientPolicies).Select(policy => new SelectListItem
             {
                 Text = policy.Name,
                 Value = policy.Id.ToString()
@@ -57,7 +61,7 @@ namespace Insurance.Controllers
         {
             if (ModelState.IsValid)
             {
-                clientApi.Post(client);
+                clientRepository.Post(client);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -70,9 +74,16 @@ namespace Insurance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,Address,Phone")] Client client)
         {
+            List<int> policiesId = Request.Form["Policies"].Split(',').Select(id => Convert.ToInt32(id)).ToList();
+            
             if (ModelState.IsValid)
             {
-                clientApi.Put(client);
+                clientRepository.Put(client);
+
+                foreach (var policyId in policiesId)
+                {
+                    clientRepository.SaveClientPolicies(client.Id, policiesId);
+                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -83,7 +94,7 @@ namespace Insurance.Controllers
         // POST: Clients/Delete/5
         public ActionResult Delete(int id)
         {
-            clientApi.Delete(id);
+            clientRepository.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }

@@ -44,11 +44,7 @@ namespace Insurance.Repositories.Implementations
         /// <param name="policy">New policy</param>
         public void Post(Policy policy)
         {
-            if (policy.Risk == Enums.RiskType.High && policy.CoverPercentage > 50)
-            {
-                policy.CoverPercentage = 50;
-            }
-
+            policy = verifyRisk(policy);
             db.Policies.Add(policy);
             db.SaveChanges();
         }
@@ -59,11 +55,7 @@ namespace Insurance.Repositories.Implementations
         /// <param name="policy">New policy</param>
         public void Put(Policy policy)
         {
-            if (policy.Risk == Enums.RiskType.High && policy.CoverPercentage > 50)
-            {
-                policy.CoverPercentage = 50;
-            }
-
+            policy = verifyRisk(policy);
             db.Entry(policy).State = EntityState.Modified;
             db.SaveChanges();
         }
@@ -85,6 +77,21 @@ namespace Insurance.Repositories.Implementations
         public void Dispose()
         {
             db.Dispose();            
+        }
+
+        /// <summary>
+        /// Verify risk level and coverage percent for the policy
+        /// </summary>
+        /// <param name="policy">Current policy</param>
+        /// <returns>Policy with the right coverage value</returns>
+        private Policy verifyRisk(Policy policy)
+        {
+            if (policy.Risk == Enums.RiskType.High && policy.CoverPercentage > 50)
+            {
+                policy.CoverPercentage = 50;
+            }
+
+            return policy;
         }
     }
 }

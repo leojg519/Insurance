@@ -16,6 +16,12 @@ namespace Insurance.ApiControllers
         /// </summary>
         private IClientRepository clientRepository = new ClientRepository();
 
+        /// <summary>
+        /// Private policy repository
+        /// </summary>
+        private IPolicyRepository policyRepository = new PolicyRepository();
+
+
         // GET api/values
         public IList<Client> Get()
         {
@@ -32,6 +38,13 @@ namespace Insurance.ApiControllers
         public void Post([FromBody]Client client)
         {
             clientRepository.Post(client);
+        }
+
+        // POST api/client/5/1
+        [Route("api/client/{clientId}/add")]
+        public void AddPolicyToClient(int clientId, List<int> policies)
+        {
+            clientRepository.SaveClientPolicies(clientId, policies);
         }
 
         // PUT api/values/5
