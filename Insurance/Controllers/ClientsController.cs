@@ -38,7 +38,7 @@ namespace Insurance.Controllers
         public ActionResult Edit(int id)
         {
             Client client = clientRepository.Get(id);
-            IList<Policy> clientPolicies = policyRepository.GetByClient(client.Id);
+            IList<Policy> clientPolicies = policyRepository.GetByClient(id);
 
             ViewBag.Policies = policyRepository.Get().Except(clientPolicies).Select(policy => new SelectListItem
             {
@@ -79,11 +79,7 @@ namespace Insurance.Controllers
             if (ModelState.IsValid)
             {
                 clientRepository.Put(client);
-
-                foreach (var policyId in policiesId)
-                {
-                    clientRepository.SaveClientPolicies(client.Id, policiesId);
-                }
+                clientRepository.SaveClientPolicies(client.Id, policiesId);                
 
                 return RedirectToAction(nameof(Index));
             }

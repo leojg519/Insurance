@@ -29,7 +29,7 @@ namespace Insurance.Repositories.Implementations
         /// </summary>
         /// <param name="id">Policy ID</param>
         /// <returns>Policy by ID</returns>
-        public Policy Get(int id) => db.Policies.Find(id);
+        public Policy Get(int id) => db.Policies.Include(policy => policy.Coverages).FirstOrDefault(policy => policy.Id == id);
 
         /// <summary>
         /// Get policies by client ID
@@ -37,6 +37,7 @@ namespace Insurance.Repositories.Implementations
         /// <param name="clientId">Client ID</param>
         /// <returns>Policies by client ID</returns>
         public IList<Policy> GetByClient(int clientId) => db.Clients.Find(clientId).Policies.ToList();
+
 
         /// <summary>
         /// Create a new policy
@@ -58,6 +59,40 @@ namespace Insurance.Repositories.Implementations
             policy = verifyRisk(policy);
             db.Entry(policy).State = EntityState.Modified;
             db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Add coverages to existing policy
+        /// </summary>
+        /// <param name="policyId">Policy ID</param>
+        /// <param name="coverages">Coverages ID</param>
+        public void SavePolicyCoverages(int policyId, List<int> coverages)
+        {
+            Policy policy = Get(policyId);
+
+            if (policy != null)
+            {
+                if (policy.Coverages == null)
+                {
+                    policy.Coverages = new List<Coverage>();
+                }
+                else
+                {
+                    policy.Coverages.Clear();
+                }
+
+                foreach (var coverageId in coverages)
+                {
+                    Coverage policyCoverage = db.Coverages.Find(coverageId);
+
+                    if (policyCoverage != null)
+                    {
+                        policy.Coverages.Add(policyCoverage);
+                        db.Entry(policy).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+            }
         }
 
         /// <summary>

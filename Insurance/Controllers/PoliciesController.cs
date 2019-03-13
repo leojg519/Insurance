@@ -1,13 +1,17 @@
 ﻿using System.Web.Mvc;
+using System.Linq;
 using Insurance.Models;
 using Insurance.Repositories.Implementations;
 using Insurance.Repositories.Interfaces;
+using System.Collections.Generic;
+using System;
 
 namespace Insurance.Controllers
 {
     public class PoliciesController : Controller
     {
         private readonly IPolicyRepository policyRepository = new PolicyRepository();
+        private readonly ICoverageRepository coverageRepository = new CoverageRepository();
 
         // GET: Policies
         public ActionResult Index()
@@ -20,6 +24,12 @@ namespace Insurance.Controllers
         // GET: Policies/Create
         public ActionResult Create()
         {
+            ViewBag.Coverages = coverageRepository.Get().Select(coverage => new SelectListItem
+            {
+                Text = coverage.Type.ToString(),
+                Value = coverage.Id.ToString()
+            });
+
             return View();
         }
 
@@ -28,6 +38,13 @@ namespace Insurance.Controllers
         public ActionResult Edit(int id)
         {
             Policy policy = policyRepository.Get(id);
+            IList<Coverage> policyCoverages = coverageRepository.GetByPolicy(id);
+
+            ViewBag.Coverages = coverageRepository.Get().Except(policyCoverages).Select(coverage => new SelectListItem
+            {
+                Text = coverage.Type.ToString(),
+                Value = coverage.Id.ToString()
+            });
 
             if (policy == null)
             {
@@ -57,9 +74,12 @@ namespace Insurance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,Coverage,CoverPercentage,StartDate,CoverMonths,Price,Risk")] Policy policy)
         {
+            List<int> coveragesId = Request.Form["Coverages"].Split(',').Select(id => Convert.ToInt32(id)).ToList();
+
             if (ModelState.IsValid)
             {
                 policyRepository.Put(policy);
+                policyRepository.SavePolicyCoverages(policy.Id, coveragesId);
 
                 return RedirectToAction(nameof(Index));
             }

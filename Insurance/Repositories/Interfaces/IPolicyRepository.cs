@@ -41,6 +41,13 @@ namespace Insurance.Repositories.Interfaces
         void Put(Policy policy);
 
         /// <summary>
+        /// Add coverages to existing policy
+        /// </summary>
+        /// <param name="policyId">Policy ID</param>
+        /// <param name="coverages">Coverages ID</param>
+        void SavePolicyCoverages(int policyId, List<int> coverages);
+
+        /// <summary>
         /// Delete existing policy
         /// </summary>
         /// <param name="id">Policy ID</param>

@@ -8,6 +8,7 @@ namespace Insurance.DAL
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<Policy> Policies { get; set; }
+        public DbSet<Coverage> Coverages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

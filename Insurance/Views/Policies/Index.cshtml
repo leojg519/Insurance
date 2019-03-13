@@ -10,7 +10,8 @@
 </div>
 <br />
 
-<p class="h2">Policies
+<p class="h2">
+    Policies
     @Html.ActionLink("+ Add New", "Create", null, htmlAttributes: new { @class = "btn btn-primary pull-right" })
 </p>
 <table class="table">
@@ -22,7 +23,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Coverage)
+            @Html.DisplayNameFor(model => model.Coverages)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CoverPercentage)
@@ -52,10 +53,15 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Coverage)
+                @foreach (var coverage in item.Coverages)
+                {
+                    <p>
+                        @Html.DisplayFor(modelItem => coverage.Type)
+                    </p>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CoverPercentage)%
+                @Html.DisplayFor(modelItem => item.CoverPercentage)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StartDate)

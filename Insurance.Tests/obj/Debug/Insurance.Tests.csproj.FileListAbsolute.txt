@@ -1,3 +1,5 @@
+C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\obj\Debug\Insurance.Tests.csprojAssemblyReference.cache
+C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\obj\Debug\Insurance.Tests.csproj.CoreCompileInputs.cache
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
@@ -49,8 +51,6 @@ C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\bin\Debug\es\System.We
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\bin\Debug\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\bin\Debug\es\System.Web.WebPages.Razor.resources.dll
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\bin\Debug\es\System.Web.Optimization.resources.dll
-C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\obj\Debug\Insurance.Tests.csprojAssemblyReference.cache
-C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\obj\Debug\Insurance.Tests.csproj.CoreCompileInputs.cache
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\obj\Debug\Insurance.Tests.csproj.CopyComplete
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\obj\Debug\Insurance.Tests.dll
 C:\Users\Leo & Eva\source\repos\Insurance\Insurance.Tests\obj\Debug\Insurance.Tests.pdb

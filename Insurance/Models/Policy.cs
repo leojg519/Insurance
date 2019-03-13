@@ -16,8 +16,6 @@ namespace Insurance.Models
 
         public string Description { get; set; }
 
-        public CoverageType Coverage { get; set; }
-        
         public int CoverPercentage { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
@@ -31,5 +29,7 @@ namespace Insurance.Models
         public RiskType Risk { get; set; }
 
         public virtual ICollection<Client> Clients { get; set; }
+
+        public virtual ICollection<Coverage> Coverages { get; set; }
     }
 }

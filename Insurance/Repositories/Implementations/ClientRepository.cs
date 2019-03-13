@@ -75,7 +75,7 @@ namespace Insurance.Repositories.Implementations
                 {
                     Policy clientPolicy = db.Policies.Find(policyId);
 
-                    if (clientPolicy != null && !client.Policies.Any(policy => policy.Id == policyId))
+                    if (clientPolicy != null)
                     {
                         client.Policies.Add(clientPolicy);
                         db.Entry(client).State = EntityState.Modified;

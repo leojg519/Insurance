@@ -253,8 +253,8 @@
     <Compile Include="ApiControllers\ApiPolicyController.cs" />
     <Compile Include="Controllers\PoliciesController.cs" />
     <Compile Include="DAL\InsuranceContext.cs" />
-    <Compile Include="Entities\Client.cs" />
-    <Compile Include="Entities\Policy.cs" />
+    <Compile Include="DAL\InsuranceInitializer.cs" />
+    <Compile Include="Models\Coverage.cs" />
     <Compile Include="Enums\CoverageType.cs" />
     <Compile Include="Enums\RiskType.cs" />
     <Compile Include="Global.asax.cs">
@@ -263,8 +263,10 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Policy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implementations\CoverageRepository.cs" />
     <Compile Include="Repositories\Implementations\PolicyRepository.cs" />
     <Compile Include="Repositories\Implementations\ClientRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICoverageRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPolicyRepository.cs" />
     <Compile Include="Repositories\Interfaces\IClientRepository.cs" />
   </ItemGroup>
@@ -331,6 +333,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
